@@ -1,4 +1,4 @@
-import * as Home from './home/route.jsx';
-import * as Posts from './posts/route.jsx';
+import * as Home from './pages/home/route.jsx';
+import * as Notes from './pages/notes/route.jsx';
 
-export default [Home, Posts];
+export default [Home, Notes];
