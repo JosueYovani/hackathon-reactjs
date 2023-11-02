@@ -1,12 +1,36 @@
 import { MdSearch } from "react-icons/md";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { NotesContext } from "../../pages/notes/Notes";
 
-const Search = ({ notes, handleSearchNote, handleTagFilter }) => {
+const SearchNote = () => {
+  const [searchText, setSearchText] = useState("");
+  const [tagFilter, setTagFilter] = useState(null);
   const [showTags, setShowTags] = useState(false);
+  const { notes, setNotes } = useContext(NotesContext);
+
+  
+  const searchTagFilter = (note) => {
+    if (tagFilter !== null) {
+      return note.tags.includes(tagFilter);
+    }
+
+    return true;
+  };
+
+  const searchTextFilter = (note) => {
+    if (searchText !== "") {
+      return (
+        note.title.toLowerCase().includes(searchText.toLowerCase()) ||
+        note.text.toLowerCase().includes(searchText.toLowerCase())
+      );
+    }
+    return true;
+  };
 
   const onClick = () => {
+    // setNotes({notes.filter(searchTagFilter).filter(searchTextFilter)});
     setShowTags(!showTags);
-    handleTagFilter(null);
+    setTagFilter(null);
   };
 
   const TagList = () => {
@@ -25,7 +49,7 @@ const Search = ({ notes, handleSearchNote, handleTagFilter }) => {
             <button
               key={index}
               className="bg-green-600 text-green-50 py-1 px-2 mr-1 mb-2  rounded-lg"
-              onClick={() => handleTagFilter(tag)}
+              onClick={() => setTagFilter(tag)}
             >
               {tag}
             </button>
@@ -41,7 +65,7 @@ const Search = ({ notes, handleSearchNote, handleTagFilter }) => {
         <div className="container mx-auto flex items-center bg-gray-200 rounded-lg p-2 ">
           <MdSearch className="" size="1.3em" />
           <input
-            onChange={(event) => handleSearchNote(event.target.value)}
+            onChange={(event) => setSearchText(event.target.value)}
             type="text"
             placeholder="Type to search..."
             className="bg-gray-200 lg:w-1/2"
@@ -59,4 +83,4 @@ const Search = ({ notes, handleSearchNote, handleTagFilter }) => {
   );
 };
 
-export default Search;
+export default SearchNote;

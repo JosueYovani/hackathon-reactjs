@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { cn } from '@/utils.js';
 import LogoIcon from '@/assets/favicon.svg';
 import routes from '@/routes.jsx';
@@ -35,8 +34,8 @@ const Navigation = () => {
             </div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
-                {routes.map(({ title, path, exact }) => (
-                  <MenuItem to={path} exact={exact}>
+                {routes.map(({ title, path, exact }, index) => (
+                  <MenuItem key={index} to={path} exact={exact}>
                     {title}
                   </MenuItem>
                 ))}
@@ -48,8 +47,8 @@ const Navigation = () => {
 
       <div className={cn('sm:hidden', !toggle && 'hidden')}>
         <div className="px-2 pt-2 pb-3 space-y-1">
-          {routes.map(({ title, path, exact }) => (
-            <MenuItem className="block" to={path} exact={exact}>
+          {routes.map(({ title, path, exact }, index) => (
+            <MenuItem className="block" key={index} to={path} exact={exact}>
               {title}
             </MenuItem>
           ))}
